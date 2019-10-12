@@ -9,6 +9,7 @@ describe('Edamam Service', () => {
     return edamam.getRecipes()
       .then(response => {
         let results = response['hits'][0]
+        expect(response.hits.length).toBe(10)
         expect(results.recipe.label).toBe('Chicken Vesuvio')
         expect(results.recipe.source).toBe('Serious Eats')
         expect(results.recipe.yield).toBe(4.0)
