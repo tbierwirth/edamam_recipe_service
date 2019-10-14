@@ -26,8 +26,7 @@ router.post('/', function(req, res, next) {
             carbohydrates: results[i].recipe.digest[1].total,
             protein: results[i].recipe.digest[2].total,
             fat: results[i].recipe.digest[0].total,
-            ingredientCount: results[i].recipe.ingredients.length,
-            prepTime: results[i].recipe.totalTime
+            ingredientCount: results[i].recipe.ingredients.length
           }
         })
         .then(([recipe, created]) => {
