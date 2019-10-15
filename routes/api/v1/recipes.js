@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     attributes: [
       'name', 'recipeUrl', 'calories',
       'servings', 'carbohydrates', 'protein',
-      'fat', 'ingredientCount'
+      'fat', 'food_type', 'ingredientCount'
     ]
   })
   .then(response => {
@@ -19,6 +19,23 @@ router.get('/', function(req, res, next) {
   })
   .catch(error => {
     res.status(404).send()
+  })
+})
+
+router.get('/food_search', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  recipes.findAll({
+    where: { food_type: req.query.food_type },
+    attributes: [
+      'name', 'recipeUrl', 'calories', 'servings'
+    ]
+  })
+  .then(recipes => {
+    if (recipes.length > 1) {
+      res.status(200).send(JSON.stringify(recipes))
+    } else {
+      res.status(400).send({ message: "No recipes found for food type."})
+    }
   })
 })
 
@@ -32,6 +49,7 @@ router.post('/', function(req, res, next) {
       res.status(404).send({message: "No recipes found"})
     } else {
       let results = response.hits
+      let foodType = response.q
       for (var i = 0; i < results.length; i++) {
         await recipes.findOrCreate({
           where: {
@@ -46,6 +64,7 @@ router.post('/', function(req, res, next) {
             carbohydrates: results[i].recipe.digest[1].total,
             protein: results[i].recipe.digest[2].total,
             fat: results[i].recipe.digest[0].total,
+            food_type: foodType,
             ingredientCount: results[i].recipe.ingredients.length
           }
         })

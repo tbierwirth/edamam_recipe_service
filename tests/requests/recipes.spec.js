@@ -44,4 +44,21 @@ describe('api', () => {
       })
     })
   })
+
+  describe('Test GET /api/v1/recipes/food_search?q=food_type', () => {
+    test('should return list of recipes with that food type', () => {
+      return request(app).get("/api/v1/recipes/food_search").query({food_type: 'chicken'})
+      .then(response => {
+        expect(response.status).toBe(200)
+        expect(response.body.length).toBe(10)
+      })
+    })
+    test('should return 400 if no recipes can be found with food type', () => {
+      return request(app).get("/api/v1/recipes/food_search").query({food_type: 'rat'})
+      .then(response => {
+        expect(response.statusCode).toBe(400)
+        expect(response.body['message']).toBe("No recipes found for food type.")
+      })
+    })
+  })
 })
