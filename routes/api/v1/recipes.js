@@ -5,19 +5,15 @@ var EdamamService = require('../../../services/edamam_service').EdamamService
 
 router.get('/', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
-  var edamam = new EdamamService(req.query.food_type)
-  return edamam.getRecipes()
+  recipes.findAll({
+    attributes: [
+      'name', 'recipeUrl', 'calories',
+      'servings', 'carbohydrates', 'protein',
+      'fat', 'ingredientCount'
+    ]
+  })
   .then(response => {
-    if (response.hits === []) {
-      res.status(404).send({message: "No recipes exist"})
-    } else {
-      recipes.findAll({
-        attributes: ['name', 'recipeUrl']
-      })
-      .then(response => {
-        res.status(200).send(response)
-      })
-    }
+    res.status(200).send(response)
   })
 })
 
