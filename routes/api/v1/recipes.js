@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     attributes: [
       'name', 'recipeUrl', 'calories',
       'servings', 'carbohydrates', 'protein',
-      'fat', 'ingredientCount'
+      'fat', 'food_type', 'ingredientCount'
     ]
   })
   .then(response => {
@@ -30,6 +30,7 @@ router.post('/', function(req, res, next) {
       res.status(404).send({message: "No recipes found"})
     } else {
       let results = response.hits
+      let foodType = response.q
       for (var i = 0; i < results.length; i++) {
         await recipes.findOrCreate({
           where: {
@@ -43,6 +44,7 @@ router.post('/', function(req, res, next) {
             carbohydrates: results[i].recipe.digest[1].total,
             protein: results[i].recipe.digest[2].total,
             fat: results[i].recipe.digest[0].total,
+            food_type: foodType,
             ingredientCount: results[i].recipe.ingredients.length
           }
         })
