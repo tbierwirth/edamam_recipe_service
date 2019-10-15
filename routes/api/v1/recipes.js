@@ -3,6 +3,23 @@ var router = express.Router()
 var recipes = require('../../../models').Recipe
 var EdamamService = require('../../../services/edamam_service').EdamamService
 
+router.get('/', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  recipes.findAll({
+    attributes: [
+      'name', 'recipeUrl', 'calories',
+      'servings', 'carbohydrates', 'protein',
+      'fat', 'ingredientCount'
+    ]
+  })
+  .then(response => {
+    res.status(200).send(response)
+  })
+  .catch(error => {
+    res.status(404).send()
+  })
+})
+
 router.post('/', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
   var edamam = new EdamamService(req.query.food_type)

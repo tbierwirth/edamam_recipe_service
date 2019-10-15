@@ -26,4 +26,14 @@ describe('api', () => {
       })
     })
   })
+
+  describe('Test GET /api/v1/recipes', () => {
+    test('should return list of recipes and 200 status code', () => {
+      return request(app).get("/api/v1/recipes").then(response => {
+        expect(response.status).toBe(200)
+        expect(response.body[0].name).toBe("Chicken Vesuvio")
+        expect(response.body.length).toBe(10)
+      })
+    })
+  })
 })
