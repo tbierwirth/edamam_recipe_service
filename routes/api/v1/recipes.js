@@ -56,7 +56,9 @@ router.post('/', function(req, res, next) {
     }
   })
   .then(response => {
-    res.status(201).send(recipes_created)
+    if (recipes_created.length > 0) {
+      res.status(201).send(recipes_created)
+    }
   })
 })
 
