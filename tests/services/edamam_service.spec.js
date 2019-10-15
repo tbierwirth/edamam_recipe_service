@@ -15,4 +15,13 @@ describe('Edamam Service', () => {
         expect(results.recipe.yield).toBe(4.0)
       })
   });
+  test('should return message if no recipes found', () => {
+    let food = "krsse232r"
+    let edamam = new EdamamService(food)
+
+    return edamam.getRecipes()
+      .then(response => {
+        expect(response.hits.length).toBe(0)
+      })
+  });
 });
