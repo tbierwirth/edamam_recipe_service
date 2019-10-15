@@ -20,6 +20,23 @@ router.get('/', function(req, res, next) {
   })
 })
 
+router.get('/food_search', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  recipes.findAll({
+    where: { food_type: req.query.food_type },
+    attributes: [
+      'name', 'recipeUrl', 'calories', 'servings'
+    ]
+  })
+  .then(recipes => {
+    if (recipes.length > 1) {
+      res.status(200).send(JSON.stringify(recipes))
+    } else {
+      res.status(400).send({ message: "No recipes found for food type."})
+    }
+  })
+})
+
 router.post('/', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
   var edamam = new EdamamService(req.query.food_type)
