@@ -71,10 +71,10 @@ router.get('/calorie_search', function(req, res, next) {
       }
     }
   }).then(results => {
-      if (results) {
-      res.status(200).send(results)
-    } else {
+    if (results.length == 0) {
       res.status(400).send({message: "No recipes found"})
+    } else {
+      res.status(200).send(results)
     }
   })
 })
