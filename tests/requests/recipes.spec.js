@@ -14,25 +14,33 @@ describe('api', () => {
     });
 
   describe('Test POST api/v1/recipes', () => {
-    test('should create recipes from Edamam', () => {
-      return request(app).post('/api/v1/recipes').query({
+    test('should create recipes from Edamam', async () => {
+      return await request(app).post('/api/v1/recipes').query({
         food_type: 'chicken'
       })
-      .then(response => {
-        expect(response.status).toBe(201)
-        recipe.findAll().then(recipes => {
-          expect(recipes.length).toBe(10)
+      .then(async response => {
+        await expect(response.status).toBe(201)
+        await recipe.findAll().then(async recipes => {
+          await expect(recipes.length).toBe(10)
         })
       })
     })
+    test('should return message if no recipes found', async () => {
+      return await request(app).post('/api/v1/recipes').query({
+        food_type: '231m3kld'
+      })
+      .then(response => {
+        expect(response.status).toBe(404)
+        expect(response.body.message).toBe("No recipes found")
+      })
+    })
   })
-
   describe('Test GET /api/v1/recipes', () => {
-    test('should return list of recipes and 200 status code', () => {
-      return request(app).get("/api/v1/recipes").then(response => {
-        expect(response.status).toBe(200)
-        expect(response.body[0].name).toBe("Chicken Vesuvio")
-        expect(response.body.length).toBe(10)
+    test('should return list of recipes and 200 status code', async () => {
+      return await request(app).get("/api/v1/recipes").then(async response => {
+        await expect(response.status).toBe(200)
+        await expect(response.body[0].name).toBe("Chicken Vesuvio")
+        await expect(response.body.length).toBe(10)
       })
     })
   })
