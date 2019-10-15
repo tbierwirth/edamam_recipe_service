@@ -14,7 +14,7 @@ describe('api', () => {
     });
 
   describe('Test GET /api/v1/recipes/calorie_search', () => {
-    test('should return recipes with 300-500 calories per serving', async () => {
+    test('should return recipes with 200-500 calories per serving', async () => {
       await recipe.bulkCreate([
         { name: 'Chicken Vesuvio', recipeUrl: 'www.recipe.com', calories: 4230, servings: 4, caloriesPerServing: 1080, carbohydrates: 178, protein: 231, fat: 275, ingredientCount: 11 },
         { name: 'Roast potatoes', recipeUrl: 'www.recipe.com', calories: 890, servings: 8, caloriesPerServing: 111, carbohydrates: 175, protein: 20, fat: 15, ingredientCount: 2 },
