@@ -40,6 +40,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      food_type: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
