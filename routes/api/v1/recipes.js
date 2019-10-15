@@ -40,6 +40,7 @@ router.post('/', function(req, res, next) {
             recipeUrl: results[i].recipe.url,
             calories: results[i].recipe.calories,
             servings: results[i].recipe.yield,
+            caloriesPerServing: (results[i].recipe.calories / results[i].recipe.yield),
             carbohydrates: results[i].recipe.digest[1].total,
             protein: results[i].recipe.digest[2].total,
             fat: results[i].recipe.digest[0].total,
@@ -54,6 +55,21 @@ router.post('/', function(req, res, next) {
   })
   .then(response => {
     res.status(201).send(recipes_created)
+  })
+})
+
+router.get('/calorie_search', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  return recipes.findAll({
+    where: {
+      caloriesPerServing: {
+        [Op.between]: [req.query.from, req.query.to]
+      }
+    }
+  }).then(results => {
+    res.status(200).send(results)
+  }).catch(error => {
+    console.log(error)
   })
 })
 

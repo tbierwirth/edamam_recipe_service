@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     recipeUrl: DataTypes.STRING,
     calories: DataTypes.INTEGER,
     servings: DataTypes.INTEGER,
+    caloriesPerServing: DataTypes.INTEGER,
     carbohydrates: DataTypes.INTEGER,
     protein: DataTypes.INTEGER,
     fat: DataTypes.INTEGER,
