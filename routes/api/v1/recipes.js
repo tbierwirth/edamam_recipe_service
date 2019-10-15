@@ -2,6 +2,8 @@ var express = require('express')
 var router = express.Router()
 var recipes = require('../../../models').Recipe
 var EdamamService = require('../../../services/edamam_service').EdamamService
+var Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 router.get('/', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
@@ -60,16 +62,20 @@ router.post('/', function(req, res, next) {
 
 router.get('/calorie_search', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
+  const from = req.query.from
+  const to = req.query.to
   return recipes.findAll({
     where: {
       caloriesPerServing: {
-        [Op.between]: [req.query.from, req.query.to]
+        [Op.between]: [from, to]
       }
     }
   }).then(results => {
-    res.status(200).send(results)
-  }).catch(error => {
-    console.log(error)
+      if (results) {
+      res.status(200).send(results)
+    } else {
+      res.status(400).send({message: "No recipes found"})
+    }
   })
 })
 
