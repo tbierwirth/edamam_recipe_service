@@ -102,7 +102,7 @@ router.get('/calorie_search', function(req, res, next) {
 
 router.get('/sort', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
-  const nutrient = req.query.nutrient
+  var nutrient = req.query.nutrient
   return recipes.findAll({
     order: [sequelize.fn('max', sequelize.col(`${nutrient}`)), 'DESC']
   })
