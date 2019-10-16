@@ -2,8 +2,8 @@ var express = require('express')
 var router = express.Router()
 var recipes = require('../../../models').Recipe
 var EdamamService = require('../../../services/edamam_service').EdamamService
-var Sequelize = require('sequelize')
-const Op = Sequelize.Op
+var sequelize = require('sequelize')
+const Op = sequelize.Op
 
 router.get('/', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
@@ -111,6 +111,22 @@ router.get('/sort', function(req, res, next) {
   })
   .catch(error => {
     res.status(400).send({message: "Please choose nutrient from carbohydrates, fat, or protein"})
+  })
+})
+
+router.get('/average_calories', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  const food_type = req.query.food_type
+  return recipes.findAll({
+    where: {food_type: food_type},
+    attributes: [[sequelize.fn('avg', sequelize.col('caloriesPerServing')), 'avgCaloriesPerServing']]
+  }).then(results => {
+    if (results[0].dataValues.avgCaloriesPerServing == null) {
+      res.status(400).send({message: "No recipes found"})
+    } else {
+      average = Math.round(results[0].dataValues.avgCaloriesPerServing)
+      res.status(200).send({average})
+    }
   })
 })
 
