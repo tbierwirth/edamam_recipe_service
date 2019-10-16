@@ -74,7 +74,8 @@ describe('api', () => {
       return request(app).get("/api/v1/recipes/sort").query({ nutrient: 'protein'})
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body['name']).toBe('Persian Chicken')
+        expect(response.body['name'].first).toBe('Persian Chicken')
+        expect(response.body['name'].last).toBe('Roast potatoes')
       })
 
       return request(app).get("/api/v1/recipes/sort").query({ nutrient: 'fat'})
