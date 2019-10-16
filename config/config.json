@@ -16,10 +16,11 @@
     "operatorsAliases": false
   },
   "production": {
+    "use_env_variable": "DATABASE_URL",
     "username": "",
     "password": null,
     "database": "recipe_tracker_production",
-    "host": "127.0.0.1",
+    "host": "https://boiling-plains-75461.herokuapp.com/",
     "dialect": "postgres",
     "operatorsAliases": false
   }
