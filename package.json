@@ -1,5 +1,5 @@
 {
-  "name": "recipe-tracker",
+  "name": "edamam_recipe_service",
   "version": "0.0.0",
   "private": true,
   "scripts": {
