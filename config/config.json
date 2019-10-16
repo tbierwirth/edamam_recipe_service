@@ -2,7 +2,7 @@
   "development": {
     "username": "",
     "password": null,
-    "database": "recipe_tracker_development",
+    "database": "edamam_recipe_service_development",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false
@@ -10,7 +10,7 @@
   "test": {
     "username": "",
     "password": null,
-    "database": "recipe_tracker_test",
+    "database": "edamam_recipe_service_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false
@@ -19,7 +19,7 @@
     "use_env_variable": "DATABASE_URL",
     "username": "",
     "password": null,
-    "database": "recipe_tracker_production",
+    "database": "edamam_recipe_service_production",
     "host": "https://boiling-plains-75461.herokuapp.com/",
     "dialect": "postgres",
     "operatorsAliases": false
