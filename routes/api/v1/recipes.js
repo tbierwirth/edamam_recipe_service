@@ -104,7 +104,7 @@ router.get('/sort', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
   const nutrient = req.query.nutrient
   return recipes.findAll({
-    order: [Sequelize.fn('max', Sequelize.col(`${nutrient}`)), 'DESC']
+    order: [sequelize.fn('max', sequelize.col(`${nutrient}`)), 'DESC']
   })
   .then(recipes => {
     res.status(200).send(JSON.stringify(recipes))
