@@ -100,4 +100,18 @@ router.get('/calorie_search', function(req, res, next) {
   })
 })
 
+router.get('/sort', function(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
+  const nutrient = req.query.nutrient
+  return recipes.findAll({
+    order: [Sequelize.fn('max', Sequelize.col(`${nutrient}`)), 'DESC']
+  })
+  .then(recipes => {
+    res.status(200).send(JSON.stringify(recipes))
+  })
+  .catch(error => {
+    res.status(400).send({message: "Please choose nutrient from carbohydrates, fat, or protein"})
+  })
+})
+
 module.exports = router;
