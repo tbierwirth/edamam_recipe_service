@@ -119,6 +119,53 @@ This API microservice integrates with Edamam Recipe Search API and provides seve
    - `GET /api/v1/recipes/sort?nutrient=protein`
    - Requires `nutrient` params. Carbohydrates, fat and protein are your options to sort by.
 - Example Response:
+```
+  {
+        "id": 21,
+        "name": "Tarragon Chicken",
+        "recipeUrl": "http://www.frenchrevolutionfood.com/2009/09/french-in-a-flash-tarragon-chicken-and-carrot-muffins-with-sweet-chevre-icing/",
+        "calories": 9435,
+        "servings": 4,
+        "caloriesPerServing": 2359,
+        "carbohydrates": 100,
+        "protein": 670,
+        "fat": 682,
+        "food_type": "chicken",
+        "ingredientCount": 11,
+        "createdAt": "2019-10-16T22:31:01.281Z",
+        "updatedAt": "2019-10-16T22:31:01.281Z"
+    },
+    {
+        "id": 20,
+        "name": "Chicken cacciatore",
+        "recipeUrl": "http://www.bbc.co.uk/food/recipes/chickenalocacciatore_70349",
+        "calories": 4447,
+        "servings": 6,
+        "caloriesPerServing": 741,
+        "carbohydrates": 254,
+        "protein": 262,
+        "fat": 246,
+        "food_type": "chicken",
+        "ingredientCount": 14,
+        "createdAt": "2019-10-16T22:31:01.276Z",
+        "updatedAt": "2019-10-16T22:31:01.276Z"
+    },
+    {
+        "id": 13,
+        "name": "Chicken Paprikash",
+        "recipeUrl": "http://norecipes.com/recipe/chicken-paprikash/",
+        "calories": 3033,
+        "servings": 4,
+        "caloriesPerServing": 758,
+        "carbohydrates": 48,
+        "protein": 237,
+        "fat": 208,
+        "food_type": "chicken",
+        "ingredientCount": 12,
+        "createdAt": "2019-10-16T22:31:01.231Z",
+        "updatedAt": "2019-10-16T22:31:01.231Z"
+    }
+```
 
 #### Return average calories per serving of a food type
 - Example Request:
