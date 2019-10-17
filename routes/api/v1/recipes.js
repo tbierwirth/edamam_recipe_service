@@ -104,10 +104,14 @@ router.get('/sort', function(req, res, next) {
   res.setHeader("Content-Type", "application/json");
   var nutrient = req.query.nutrient
   return recipes.findAll({
-    order: [sequelize.fn('max', sequelize.col(`${nutrient}`)), 'DESC']
+    order: [[`${nutrient}`, 'DESC']]
   })
-  .then(recipes => {
-    res.status(200).send(JSON.stringify(recipes))
+  .then(results => {
+    if (results.length > 0) {
+      res.status(200).send(results)
+    } else {
+      res.status(400).send({message: "Please choose nutrient from carbohydrates, fat, or protein"})
+    }
   })
   .catch(error => {
     res.status(400).send({message: "Please choose nutrient from carbohydrates, fat, or protein"})
