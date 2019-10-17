@@ -1,5 +1,8 @@
 # Edamam Recipe Service
 This API microservice integrates with Edamam Recipe Search API and provides several endpoints to add recipes from Edamam, return recipes with a specific range of calories per serving and more.
+
+Deployed at https://boiling-plains-75461.herokuapp.com
+
 ## Setup
  - `npm install`
  - `npm sequelize db:create`
