@@ -7,6 +7,7 @@ foodTypes.forEach(function(foodType) {
   return edamam.getRecipes()
   .then(async response => {
     let results = response.hits
+    let foodType = response.q
     for (var i = 0; i < results.length; i++) {
       await recipes.findOrCreate({
         where: {
@@ -21,6 +22,7 @@ foodTypes.forEach(function(foodType) {
           carbohydrates: results[i].recipe.digest[1].total,
           protein: results[i].recipe.digest[2].total,
           fat: results[i].recipe.digest[0].total,
+          food_type: foodType,
           ingredientCount: results[i].recipe.ingredients.length
         }
       })
